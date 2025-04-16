@@ -11,5 +11,5 @@ export const logger = (req, res, next) => {
     // query params
     req.query && Object.keys(req.query)
         .forEach(q => process.stdout.write(` ${q}: ${req.query[q]}\n`));
-    next();
+    return next();
 }
