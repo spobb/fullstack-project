@@ -43,12 +43,11 @@ class ContactController {
             const data = await readFromFile();
             const { contacts } = data;
 
-            // check if ID is duplicate (in case of brute force ID assignment)
-            if (contacts.some(c => c.id == req.body.id)) {
-                return res.status(401).json(`Duplicate ID ${req.body.id}!`);
+            const contact = {
+                id: contacts.length ?
+                    (contacts.at(-1).id + 1) : 1,
+                ...req.body
             }
-
-            const contact = { id: contacts.at(-1).id + 1, ...req.body }
 
             contacts.push(contact);
 
