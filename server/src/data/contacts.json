@@ -1,0 +1,62 @@
+{
+    "contacts": [
+        {
+            "id": 1,
+            "firstName": "John",
+            "lastName": "Doe",
+            "email": "john.doe@example.com",
+            "phone": "+33612345678",
+            "address": "123 rue Example, 75000 Paris",
+            "avatar": {
+                "fieldname": "avatar",
+                "originalname": "funny guy.png",
+                "encoding": "7bit",
+                "mimetype": "image/png",
+                "destination": "public/uploads/",
+                "filename": "145ab1af9023662b0f573cc74637bfd4",
+                "path": "public\\uploads\\145ab1af9023662b0f573cc74637bfd4",
+                "size": 196352
+            }
+        },
+        {
+            "id": 2,
+            "firstName": "Jane",
+            "lastName": "Smith",
+            "email": "jane.smith@example.com",
+            "phone": "+33687654321",
+            "address": "456 avenue Test, 69000 Lyon"
+        },
+        {
+            "id": 3,
+            "firstName": "John",
+            "lastName": "Smith",
+            "email": "test@test.com",
+            "phone": "+320000000",
+            "address": "123 rue example"
+        },
+        {
+            "id": 4,
+            "firstName": "John",
+            "lastName": "Smith",
+            "email": "test@test.com",
+            "phone": "+320000000",
+            "address": "123 rue example"
+        },
+        {
+            "id": 5,
+            "firstName": "John",
+            "lastName": "Smith",
+            "email": "test@test.com",
+            "phone": "+320000000",
+            "address": "123 rue example"
+        },
+        {
+            "id": 6,
+            "firstName": "John",
+            "lastName": "Smith",
+            "email": "test@test.com",
+            "phone": "+320000000",
+            "address": "123 rue example"
+        }
+    ]
+}

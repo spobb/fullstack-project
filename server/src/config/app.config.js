@@ -10,4 +10,9 @@ app.use(logger);
 
 app.use('/api/contacts', contactRouter);
 
+// handle not found
+app.all(/(.*)/, (req, res) => {
+    res.status(404).send('Not Found!');
+});
+
 export default app;
