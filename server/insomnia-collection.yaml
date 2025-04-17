@@ -1,0 +1,215 @@
+type: collection.insomnia.rest/5.0
+name: Express API
+meta:
+  id: wrk_fc0fe3b2e3114b58960cc2584528755e
+  created: 1743410449326
+  modified: 1744647995621
+collection:
+  - url: http://localhost:3000/api/contacts
+    name: /contacts
+    meta:
+      id: req_8599fe8d7ebc47f89b47323dfec0b469
+      created: 1743410455299
+      modified: 1744908502049
+      isPrivate: false
+      sortKey: -1743410455299
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/11.0.1
+        id: pair_00f00cd756394001bd2ddf7a27e628a9
+      - id: pair_94c118c77d304fa1aaa1bb8812d7b65f
+        name: Accept
+        value: application/vnd.express.v1+json
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:3000/api/contacts/:id
+    name: /contacts/:id
+    meta:
+      id: req_ec8ffd62782140beb4ebe80d7ed70904
+      created: 1743876327590
+      modified: 1744827873897
+      isPrivate: false
+      sortKey: -1742228185316.5
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/11.0.1
+      - name: Accept
+        value: application/vnd.express.v1+json
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+    pathParameters:
+      - name: id
+        value: "1500"
+  - url: http://localhost:3000/api/contacts
+    name: /contacts
+    meta:
+      id: req_6262a68c6f4a45b7ba46b586dc1dbd37
+      created: 1743876334463
+      modified: 1744908755048
+      isPrivate: false
+      sortKey: -1742819320307.75
+    method: POST
+    body:
+      mimeType: multipart/form-data
+      params:
+        - name: fields
+          value: |-
+            {
+            	"firstName": "{% faker 'randomFirstName' %}",
+            	"lastName": "{% faker 'randomLastName' %}",
+            	"email": "{% faker 'randomEmail' %}",
+            	"phone": "{% faker 'randomPhoneNumber' %}",
+            	"address": "{% faker 'randomStreetAddress' %}"
+            }
+          id: pair_a701eeb956004961bc58a8e1f5149afe
+          type: text
+          multiline: application/json
+        - id: pair_811b06fb51834607b3b5af8e60f2d809
+          name: avatar
+          disabled: false
+          type: file
+          fileName: C:\Users\Guillaume\Desktop\funny\hedgehog.jpg
+    headers:
+      - name: Content-Type
+        value: multipart/form-data
+      - name: User-Agent
+        value: insomnia/11.0.1
+      - name: Accept
+        value: application/vnd.express.v1+json
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:3000/api/contacts/:id
+    name: /contacts/:id
+    meta:
+      id: req_06f867a89525442eb06b248d7826baa5
+      created: 1743876345611
+      modified: 1744824207029
+      isPrivate: false
+      sortKey: -1741637050325.25
+    method: PUT
+    body:
+      mimeType: multipart/form-data
+      params:
+        - name: fields
+          value: |-
+            {
+            	"firstName": "John"
+            }
+          id: pair_e309851838a649d8924d16bf616b1050
+          type: text
+          multiline: application/json
+        - id: pair_a12ea3bd333440cbb3f8fd7c5a1b5862
+          name: avatar
+          disabled: false
+          type: file
+          fileName: C:\Users\Guillaume\Desktop\funny\funny guy.png
+    headers:
+      - name: Content-Type
+        value: multipart/form-data
+      - name: User-Agent
+        value: insomnia/11.0.1
+      - name: Accept
+        value: application/vnd.express.v1+json
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+    pathParameters:
+      - name: id
+        value: "1"
+  - url: http://localhost:3000/api/contacts/:id
+    name: /contacts/:id
+    meta:
+      id: req_b36bdea8fa93449bbc68b00e355d2fa9
+      created: 1743876347831
+      modified: 1744824211293
+      isPrivate: false
+      sortKey: -1741341482829.625
+    method: DELETE
+    headers:
+      - name: User-Agent
+        value: insomnia/11.0.1
+      - name: Accept
+        value: application/vnd.express.v1+json
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+    pathParameters:
+      - name: id
+        value: "1"
+  - url: http://localhost:3000/api/contacts/:id
+    name: /contacts/:id
+    meta:
+      id: req_54a5f5b10d544d708b0cfe8993f31e56
+      created: 1744648561277
+      modified: 1744824209632
+      isPrivate: false
+      sortKey: -1741489266577.4375
+    method: PATCH
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"firstName" : "John"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/11.0.1
+      - name: Accept
+        value: application/vnd.express.v1+json
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+    pathParameters:
+      - name: id
+        value: "1"
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_08eb4faad5b81f077dba58f18852698c870f7ba0
+    created: 1743410449330
+    modified: 1743410449330
+environments:
+  name: Base Environment
+  meta:
+    id: env_08eb4faad5b81f077dba58f18852698c870f7ba0
+    created: 1743410449329
+    modified: 1744823998318
+    isPrivate: false
