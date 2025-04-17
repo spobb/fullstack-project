@@ -5,10 +5,14 @@ import { ClientError } from '#errors';
 
 const app = express();
 
+app.use((req, res, next) => {
+    res.startTime = Date.now();
+    next()
+})
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
-app.use(logger);
+app.use(logger({ resTime: false }));
 
 app.use('/api', getApiVersion(process.env.API_VERSION));
 
