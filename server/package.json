@@ -4,13 +4,19 @@
 	"main": "src/app.js",
 	"type": "module",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
 		"start": "nodemon src/app.js"
 	},
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
 	"description": "",
+	"imports": {
+		"#errors": "./src/classes/errors/index.js",
+		"#contact/*": "./src/resources/contact/*",
+		"#services": "./src/services/index.js",
+		"#middlewares": "./src/middlewares/index.js",
+		"#config/*": "./src/config/*"
+	},
 	"dependencies": {
 		"dotenv": "^16.5.0",
 		"express": "^5.1.0",

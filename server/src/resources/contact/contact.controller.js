@@ -1,7 +1,6 @@
-import { readFromFile, writeToFile } from '../../services/read-write.service.js';
+import { ClientError } from '#errors';
+import { readFromFile, writeToFile } from '#services';
 import 'dotenv/config.js';
-
-const path = process.env.DATA_PATH;
 
 class ContactController {
     constructor() { }
@@ -12,7 +11,7 @@ class ContactController {
             const { contacts } = data;
 
             if (!contacts) {
-                return res.status(404).json({ message: 'No contacts found!' });
+                throw new ClientError('No contacts found', 404);
             };
 
             return res.status(200).json(contacts);
@@ -29,7 +28,7 @@ class ContactController {
             const result = contacts.find(c => c.id == req.params.id);
 
             if (!result) {
-                return res.status(404).json({ message: `No contact with ID ${req.params.id} found!` });
+                throw new ClientError(`No contact with ID ${req.params.id} found!`, 404);
             };
 
             return res.status(200).json(result);
@@ -64,7 +63,7 @@ class ContactController {
 
             const contact = contacts.find(c => c.id == req.params.id);
             if (!contact) {
-                return res.status(404).json({ message: `No contact with ID ${req.params.id} found!` });
+                throw new ClientError(`No contact with ID ${req.params.id} found!`, 404);
             }
 
             Object.assign(contact, req.body);
@@ -82,7 +81,7 @@ class ContactController {
 
             const index = contacts.findIndex(c => c.id == req.params.id);
             if (index == -1) {
-                return res.status(404).json({ message: `No contact with ID ${req.params.id} found!` });
+                throw new ClientError(`No contact with ID ${req.params.id} found!`, 404);
             }
 
             contacts.splice(index, 1);

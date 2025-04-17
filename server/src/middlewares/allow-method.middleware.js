@@ -4,7 +4,12 @@
  * @returns
  */
 
+import { ClientError } from "#errors";
+
 export const allowMethods = (methods = ['GET']) => (req, res, next) => {
-    if (methods.includes(req.method)) { next(); return };
-    return res.status(405).send({ message: `${req.method} method not allowed!` });
+    if (methods.includes(req.method)) {
+        return next();
+    };
+
+    throw new ClientError(`${req.method} method not allowed!`, 405);
 }
