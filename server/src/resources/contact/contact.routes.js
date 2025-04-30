@@ -3,9 +3,6 @@ import ContactController from './contact.controller.js';
 
 import { allowMethods } from '../../middlewares/allow-method.middleware.js';
 import { multerParser } from '../../middlewares/multer-parser.middleware.js';
-import { validate } from '../../middlewares/validator.middleware.js';
-
-import contact from './contact.model.json' assert { type: 'json' };
 
 import upload from '../../config/multer.config.js'
 
@@ -13,7 +10,7 @@ const router = Router();
 
 router.route('/').all(allowMethods(['GET', 'POST']))
     .get(ContactController.getAll)
-    .post(upload.single('avatar'), multerParser, validate(contact), ContactController.create);
+    .post(upload.single('avatar'), multerParser, ContactController.create);
 
 router.route('/:id').all(allowMethods(['GET', 'PUT', 'DELETE']))
     .get(ContactController.get)

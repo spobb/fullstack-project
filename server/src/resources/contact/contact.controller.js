@@ -1,14 +1,13 @@
 import { ClientError } from '#errors';
-import { readFromFile, writeToFile } from '#services';
 import 'dotenv/config.js';
+import { Contact } from '#models';
 
 class ContactController {
     constructor() { }
 
     async getAll(req, res, next) {
         try {
-            const data = await readFromFile();
-            const { contacts } = data;
+            const contacts = await Contact.find({});
 
             if (!contacts) {
                 throw new ClientError('No contacts found', 404);
@@ -22,16 +21,14 @@ class ContactController {
 
     async get(req, res, next) {
         try {
-            const data = await readFromFile();
-            const { contacts } = data;
+            const contact = await Contact.find({ _id: req.params.id });
+            console.log(req.params.id)
 
-            const result = contacts.find(c => c.id == req.params.id);
-
-            if (!result) {
+            if (!contact) {
                 throw new ClientError(`No contact with ID ${req.params.id} found!`, 404);
             };
 
-            return res.status(200).json(result);
+            return res.status(200).json(contact);
         } catch (err) {
             next(err);
         }
@@ -39,18 +36,9 @@ class ContactController {
 
     async create(req, res, next) {
         try {
-            const data = await readFromFile();
-            const { contacts } = data;
+            const contact = new Contact({ ...req.body })
+            await contact.save();
 
-            const contact = {
-                id: contacts.length ?
-                    (contacts.at(-1).id + 1) : 1,
-                ...req.body
-            }
-
-            contacts.push(contact);
-
-            await writeToFile(data);
             return res.status(201).json(contact);
         } catch (err) {
             next(err);
@@ -58,17 +46,12 @@ class ContactController {
     };
     async update(req, res, next) {
         try {
-            const data = await readFromFile();
-            const { contacts } = data;
+            const contact = await Contact.findByIdAndUpdate(req.params.id, { ...req.body }, { new: true });
 
-            const contact = contacts.find(c => c.id == req.params.id);
             if (!contact) {
                 throw new ClientError(`No contact with ID ${req.params.id} found!`, 404);
             }
 
-            Object.assign(contact, req.body);
-
-            await writeToFile(data);
             return res.status(200).json(contact);
         } catch (err) {
             next(err);
@@ -76,18 +59,13 @@ class ContactController {
     };
     async delete(req, res, next) {
         try {
-            const data = await readFromFile();
-            const { contacts } = data;
+            const contact = await Contact.findByIdAndDelete(req.params.id);
 
-            const index = contacts.findIndex(c => c.id == req.params.id);
-            if (index == -1) {
+            if (!contact) {
                 throw new ClientError(`No contact with ID ${req.params.id} found!`, 404);
             }
 
-            contacts.splice(index, 1);
-
-            await writeToFile(data);
-            return res.status(204).send();
+            return res.status(200).json(contact);
         } catch (err) {
             next(err);
         }

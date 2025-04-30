@@ -4,6 +4,8 @@ import { errorHandler } from './error-handler.middleware.js';
 import { logger } from "./logger.middleware.js";
 import { multerParser } from "./multer-parser.middleware.js";
 import { validate } from "./validator.middleware.js";
+import { authorize } from "./authorize.middleware.js";
+import { allowRoles } from './allow-roles.middleware.js';
 
 export {
     getApiVersion,
@@ -11,5 +13,7 @@ export {
     errorHandler,
     logger,
     multerParser,
-    validate
+    validate,
+    authorize,
+    allowRoles,
 }

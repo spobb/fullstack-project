@@ -1,7 +1,10 @@
 import express from 'express';
 import contactRouter from '#contact/contact.routes.js';
+import userRouter from '#user/user.routes.js';
+import authRouter from '#auth/auth.route.js';
+
 import { logger, getApiVersion, errorHandler } from '#middlewares';
-import { ClientError } from '#errors';
+import { NotFoundError } from '#errors';
 
 const app = express();
 
@@ -17,10 +20,12 @@ app.use(logger({ resTime: false }));
 app.use('/api', getApiVersion(process.env.API_VERSION));
 
 app.use('/api/contacts', contactRouter);
+app.use('/api/users', userRouter);
+app.use('/api/auth', authRouter);
 
 // handle not found
 app.all(/(.*)/, (req, res) => {
-    throw new ClientError('Not found', 404)
+    throw new NotFoundError('Route not found');
 });
 
 app.use(errorHandler);

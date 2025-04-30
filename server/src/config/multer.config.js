@@ -7,6 +7,16 @@ const fileFilter = (req, file, cb) => {
     return cb(new ClientError('Invalid file type'));
 }
 
-const upload = multer({ dest: 'public/uploads/', fileFilter: fileFilter });
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'public/uploads/')
+    },
+    filename: (req, file, cb) => {
+        const suffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        cb(null, file.fieldname + suffix);
+    }
+})
+
+const upload = multer({ storage: storage, fileFilter: fileFilter });
 
 export default upload;
