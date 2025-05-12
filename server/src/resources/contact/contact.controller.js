@@ -36,7 +36,7 @@ class ContactController {
 
     async create(req, res, next) {
         try {
-            const contact = new Contact({ ...req.body })
+            const contact = new Contact({ ...req.body, email: req.user.email, owner: req.user._id });
             await contact.save();
 
             return res.status(201).json(contact);

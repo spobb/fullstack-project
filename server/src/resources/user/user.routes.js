@@ -8,7 +8,7 @@ const router = Router();
 router.route('/').all(allowMethods(['GET']), authorize, allowRoles([Role.ADMIN]))
     .get(UserController.getAll)
 
-router.route('/:id').all(allowMethods(['GET', 'PUT', 'DELETE']), authorize)
+router.route('/:id').all(allowMethods(['GET', 'PUT', 'DELETE']), authorize, allowRoles([Role.USER, Role.ADMIN]))
     .get(UserController.get)
     .put(UserController.update)
     .delete(UserController.delete);
