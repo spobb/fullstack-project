@@ -1,5 +1,6 @@
 import { Layout } from './ui/layout/Layout';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { LoginForm } from './features/auth/LoginForm';
 
 const theme = createTheme({ cssVariables: true });
 
@@ -8,7 +9,7 @@ function App() {
         <>
             <ThemeProvider theme={theme}>
                 <Layout>
-                    <h1>Welcome!</h1>
+                    <LoginForm />
                 </Layout>
             </ThemeProvider>
         </>
