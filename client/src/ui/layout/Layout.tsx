@@ -1,23 +1,24 @@
 import { AppBar, Toolbar, Typography, Button } from "@mui/material"
 import './Layout.css';
 
-export const Layout = ({children}: {children: React.ReactNode}) => {
+export const Layout = ({ children }: { children: React.ReactNode }) => {
     return (
         <>
-        <AppBar>
-            <Toolbar>
-                <Typography variant='h6' component='div' sx={{flexGrow: 1}}>ContactApp</Typography>
-                <Button color='inherit'>Login</Button>
-            </Toolbar>
-        </AppBar>
+            <AppBar position="fixed">
+                <Toolbar>
+                    <Typography variant='h4' sx={{ flexGrow: 1 }}>ContactApp</Typography>
+                    <Button color='inherit'>Sign up</Button>
+                    <Button color='inherit'>Login</Button>
+                </Toolbar>
+            </AppBar>
 
-        <main>
-            {children}
-        </main>
+            <main>
+                {children}
+            </main>
 
-        <footer>
-            &copy; Spobb {new Date().getFullYear()}
-        </footer>
+            <footer>
+                &copy; Guillaume {new Date().getFullYear()}
+            </footer>
         </>
     )
 }

@@ -1,6 +1,29 @@
+:root {
+    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+body {
+    margin: 0;
+}
+#root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+header {
+    box-shadow: var(--mui-shadows-1);
+}
 main {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
-    min-height: 90dvh;
+    color: black;
+    flex: 1;
+    padding: 5rem;
+    text-align: center;
+}
+footer {
+    display: flex;
+    justify-content: center;
+    color: black;
+    padding: 1rem;
 }
