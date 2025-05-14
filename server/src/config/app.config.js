@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(logger({ resTime: false }));
 
-app.use('/api', getApiVersion(process.env.API_VERSION));
+// app.use('/api', getApiVersion(process.env.API_VERSION));
 
 app.use('/api/contacts', contactRouter);
 app.use('/api/users', userRouter);
