@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import contactRouter from '#contact/contact.routes.js';
 import userRouter from '#user/user.routes.js';
 import authRouter from '#auth/auth.route.js';
@@ -8,6 +9,7 @@ import { NotFoundError } from '#errors';
 
 const app = express();
 
+app.use(cors());
 app.use((req, res, next) => {
     res.startTime = Date.now();
     next()
