@@ -9,14 +9,24 @@ body {
     flex-direction: column;
     min-height: 100vh;
 }
+.MuiPaper-root {
+    padding: 2rem;
+    justify-content: center;
+}
+.divider {
+    margin: 0 2rem;
+    width: 1px;
+    height: 1rem;
+    background-color: #000;
+}
 header {
-    box-shadow: var(--mui-shadows-1);
+    justify-content: center;
 }
 main {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    color: black;
+    align-items: center;
     flex: 1;
     padding: 5rem;
     text-align: center;
@@ -24,6 +34,5 @@ main {
 footer {
     display: flex;
     justify-content: center;
-    color: black;
     padding: 1rem;
 }

@@ -1,32 +1,27 @@
-import { Box, Button, FormControl, TextField, Typography, Input, InputAdornment, IconButton, InputLabel, FormHelperText } from "@mui/material";
+import { Box, Button, FormControl, TextField, Typography, Input, InputLabel, FormHelperText } from "@mui/material";
 // es-lint-disable-next-line
-import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { fetchService } from "../../services/fetch.service";
-import { useAuth } from "./AuthContext";
 import { useNavigate } from "react-router-dom";
 
-import { ReactElement, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
-import { LoginData } from "#types/logindata.type";
+import { RegisterData } from "#types/registerdata.type";
+import { ReactElement } from "react";
 
-export function LoginForm(): ReactElement {
-    const { register, handleSubmit, formState: { errors, isValid } } = useForm<LoginData>({ mode: 'onChange' });
-    const [showPassword, setShowPassword] = useState<boolean>(false);
-    const handleShowPassword = () => setShowPassword(!showPassword);
+export function RegisterForm(): ReactElement {
+    const { register, watch, handleSubmit, formState: { errors, isValid } } = useForm<RegisterData>({ mode: 'onChange' });
 
-    const { login } = useAuth();
     const navigate = useNavigate();
+    const password = watch('password');
 
-    const onSubmit: SubmitHandler<LoginData> = async (data) => {
+    const onSubmit: SubmitHandler<RegisterData> = async (data) => {
         try {
-            const response = await fetchService('/auth/login', 'POST', data);
+            const response = await fetchService('/auth/register', 'POST', { email: data.email, password: data.password });
 
             if (!response) {
                 return;
             }
 
-            login(response);
             navigate('/');
 
         } catch (err) {
@@ -36,7 +31,7 @@ export function LoginForm(): ReactElement {
 
     return (
         <>
-            <Typography variant="h5" color="initial" sx={{ padding: '2rem' }}>Log in</Typography>
+            <Typography variant="h5" color="initial" sx={{ padding: '2rem' }}>Sign up</Typography>
             <Box onSubmit={handleSubmit(onSubmit)} component='form' sx={{ display: 'flex', flexDirection: 'column', margin: '0 auto', gap: '1rem', minWidth: '384px' }}>
                 <FormControl>
                     <TextField
@@ -59,7 +54,7 @@ export function LoginForm(): ReactElement {
                     <InputLabel htmlFor='password' error={errors.password && true}>Password</InputLabel>
                     <Input
                         id="password"
-                        type={showPassword ? 'text' : 'password'}
+                        type='password'
                         {...register('password', {
                             required: true,
                             minLength: {
@@ -72,14 +67,22 @@ export function LoginForm(): ReactElement {
                             }
                         })}
                         error={errors.password && true}
-                        endAdornment={
-                            <InputAdornment position="end">
-                                <IconButton onClick={handleShowPassword} edge="end">
-                                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                                </IconButton>
-                            </InputAdornment>
-                        } />
+                    />
                     <FormHelperText error>{errors.password?.message as string}</FormHelperText>
+                </FormControl>
+
+                <FormControl variant="standard">
+                    <InputLabel htmlFor='cpassword' error={errors.cpassword && true}>Confirm password</InputLabel>
+                    <Input
+                        id="cpassword"
+                        type='password'
+                        {...register('cpassword', {
+                            required: 'Please confirm your password.',
+                            validate: (value) => value === password || 'Passwords do not match.'
+                        })}
+                        error={errors.cpassword && true}
+                    />
+                    <FormHelperText error>{errors.cpassword?.message as string}</FormHelperText>
                 </FormControl>
 
                 <FormControl>
@@ -87,7 +90,7 @@ export function LoginForm(): ReactElement {
                         disabled={!isValid}
                         variant="contained"
                         type="submit"
-                    >Log in</Button>
+                    >Sign up</Button>
                 </FormControl>
             </Box>
         </>

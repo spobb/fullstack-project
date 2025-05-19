@@ -1,22 +1,27 @@
-import { AppBar, Toolbar, Button, Link } from "@mui/material";
+import { AppBar, Toolbar, Button } from "@mui/material";
 import { Outlet } from "react-router-dom";
+
+import { useAuth } from "#features/auth/AuthContext";
+
 import './Layout.css';
-import { useAuth } from "../../features/auth/AuthContext";
 
 export const Layout = () => {
     const { user, logout } = useAuth();
 
     return (
         <>
-            <AppBar position="fixed">
+            <AppBar position="fixed" color="transparent" sx={{ boxShadow: 'none' }}>
                 <Toolbar>
-                    <Link
-                        href="/"
-                        variant="h4"
-                        underline="none"
-                        color="white"
-                        sx={{ flexGrow: 1 }}>
-                        ContactApp</Link>
+                    <Button
+                        color='inherit'
+                        href='/'
+                        size='large'
+                        sx={{ marginRight: 'auto', fontSize: '2rem', textTransform: 'none' }}>
+                        Contact.
+                    </Button>
+                    <span className="divider"></span>
+                    <Button color='inherit' href="/contacts">Contacts</Button>
+                    <span className="divider"></span>
                     {!user && <Button color='inherit' href="/register">Sign up</Button>}
                     {!user && <Button color='inherit' href="/login">Login</Button>}
                     {user && <Button color='inherit' onClick={logout}>Log out</Button>}

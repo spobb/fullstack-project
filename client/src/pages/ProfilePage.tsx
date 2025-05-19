@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { useAuth } from "../features/auth/AuthContext";
 
 import { fetchService } from "../services/fetch.service";
@@ -9,7 +9,7 @@ type ProfileData = {
     email: string
 }
 
-export const ProfilePage = () => {
+export function ProfilePage(): ReactElement {
     const [profile, setProfile] = useState<ProfileData | null>(null);
     const { user } = useAuth();
 
