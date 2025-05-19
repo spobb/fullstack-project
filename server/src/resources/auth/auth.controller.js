@@ -33,7 +33,7 @@ class AuthController {
             }
 
             const token = generateToken(user);
-            return res.status(201).json({ data: user._id, token });
+            return res.status(201).json({ id: user._id, token });
         } catch (err) {
             next(err);
         }
