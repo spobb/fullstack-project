@@ -8,5 +8,5 @@ export const fetchService = async (url: string, method: string = 'GET', body: un
         },
     });
 
-    return response;
+    return await response.json();
 }

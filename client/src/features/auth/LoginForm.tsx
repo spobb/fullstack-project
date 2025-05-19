@@ -3,27 +3,35 @@ import { Box, Button, FormControl, TextField, Typography, Input, InputAdornment,
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { fetchService } from "../../services/fetch.service";
 import { useAuth } from "./AuthContext";
+import { useNavigate } from "react-router-dom";
 
 import { useState } from "react";
-import { useForm, FieldValues } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 
-type LoginData = {
+type UserData = {
     email: string,
     password: string
 }
 
 export const LoginForm = () => {
-    const { register, handleSubmit, formState: { errors, isValid } } = useForm<FieldValues>({ mode: 'onChange' });
+    const { register, handleSubmit, formState: { errors, isValid } } = useForm<UserData>({ mode: 'onChange' });
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const handleShowPassword = () => setShowPassword(!showPassword);
 
-    const onSubmit = async (data: LoginData): Promise<void> => {
+    const { login } = useAuth();
+    const navigate = useNavigate();
+
+    const onSubmit: SubmitHandler<UserData> = async (data) => {
         try {
             const response = await fetchService('/auth/login', 'POST', data);
-            const { login } = useAuth();
 
-            console.log(response);
-            login(response.data, response.token);
+            if (!response) {
+                return;
+            }
+
+            login(response);
+            navigate('/');
+
         } catch (err) {
             console.error(err);
         }
