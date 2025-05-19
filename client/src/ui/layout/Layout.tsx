@@ -1,19 +1,26 @@
-import { AppBar, Toolbar, Typography, Button } from "@mui/material"
+import { AppBar, Toolbar, Button, Link } from "@mui/material";
+import { Outlet } from "react-router-dom";
 import './Layout.css';
 
-export const Layout = ({ children }: { children: React.ReactNode }) => {
+export const Layout = () => {
     return (
         <>
             <AppBar position="fixed">
                 <Toolbar>
-                    <Typography variant='h4' sx={{ flexGrow: 1 }}>ContactApp</Typography>
-                    <Button color='inherit'>Sign up</Button>
-                    <Button color='inherit'>Login</Button>
+                    <Link
+                        href="/"
+                        variant="h4"
+                        underline="none"
+                        color="white"
+                        sx={{ flexGrow: 1 }}>
+                        ContactApp</Link>
+                    <Button color='inherit' href="/register">Sign up</Button>
+                    <Button color='inherit' href="/login">Login</Button>
                 </Toolbar>
             </AppBar>
 
             <main>
-                {children}
+                <Outlet />
             </main>
 
             <footer>

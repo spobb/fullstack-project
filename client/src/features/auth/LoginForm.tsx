@@ -1,23 +1,29 @@
 import { Box, Button, FormControl, TextField, Typography, Input, InputAdornment, IconButton, InputLabel, FormHelperText } from "@mui/material";
+// es-lint-disable-next-line
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { fetchService } from "../../services/fetch.service";
+import { useAuth } from "./AuthContext";
 
 import { useState } from "react";
-import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
+import { useForm, FieldValues } from "react-hook-form";
+
+type LoginData = {
+    email: string,
+    password: string
+}
 
 export const LoginForm = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm<FieldValues>();
+    const { register, handleSubmit, formState: { errors, isValid } } = useForm<FieldValues>({ mode: 'onChange' });
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const handleShowPassword = () => setShowPassword(!showPassword);
 
-    const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const onSubmit = async (data: LoginData): Promise<void> => {
         try {
-            const response = await fetch('http://localhost:3000/api/auth/login', {
-                method: 'POST',
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data)
-            })
-            const user = await response.json();
-            console.log(user);
+            const response = await fetchService('/auth/login', 'POST', data);
+            const { login } = useAuth();
+
+            console.log(response);
+            login(response.data, response.token);
         } catch (err) {
             console.error(err);
         }
@@ -51,8 +57,14 @@ export const LoginForm = () => {
                         type={showPassword ? 'text' : 'password'}
                         {...register('password', {
                             required: true,
-                            minLength: { value: 8, message: 'Your password has to be between 8 and 24 characters long.' },
-                            maxLength: { value: 24, message: 'Your password has to be between 8 and 24 characters long.' }
+                            minLength: {
+                                value: 8,
+                                message: 'Your password must be between 8 and 24 characters long.'
+                            },
+                            maxLength: {
+                                value: 24,
+                                message: 'Your password must be between 8 and 24 characters long.'
+                            }
                         })}
                         error={errors.password && true}
                         endAdornment={
@@ -66,7 +78,11 @@ export const LoginForm = () => {
                 </FormControl>
 
                 <FormControl>
-                    <Button variant="contained" type="submit">Log in</Button>
+                    <Button
+                        disabled={!isValid}
+                        variant="contained"
+                        type="submit"
+                    >Log in</Button>
                 </FormControl>
             </Box>
         </>
