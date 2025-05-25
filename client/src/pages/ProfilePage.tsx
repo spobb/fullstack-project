@@ -6,11 +6,14 @@ import { fetchService } from "../services/fetch.service";
 type ProfileData = {
     firstName: string,
     lastName: string,
-    email: string
+    email: string,
+    phone: string,
+    avatar: string,
 }
 
 export function ProfilePage(): ReactElement {
     const [profile, setProfile] = useState<ProfileData | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
     const { user } = useAuth();
 
     useEffect(() => {
@@ -21,13 +24,20 @@ export function ProfilePage(): ReactElement {
             }
 
             setProfile(response.contact);
+            setLoading(false);
         })();
-    }, [user]);
+    }, [user?.token]);
 
+    if (loading) return <p>Loading...</p>;
 
     return (
         <>
             <p>{profile?.firstName}</p>
+            <p>{profile?.lastName}</p>
+            <p>{profile?.email}</p>
+            <p>{profile?.phone}</p>
+
+            <img src={`${import.meta.env.VITE_AVATAR_DIR}/${profile?.avatar}`} alt={`${profile?.firstName} ${profile?.lastName}`} />
         </>
     )
 }

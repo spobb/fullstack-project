@@ -11,7 +11,7 @@ type AuthContextType = {
     user: User | null,
     login: (userData: User) => void,
     logout: () => void,
-    isLoading: boolean,
+    loading: boolean,
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -21,17 +21,17 @@ export const useAuth = (): AuthContextType => useContext(AuthContext)!;
 
 export function AuthProvider({ children }: { children: ReactNode }): ReactElement {
     const [user, setUser] = useState<User | null>(null);
-    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [loading, setLoading] = useState<boolean>(true);
     const navigate = useNavigate();
 
     useEffect(() => {
-        const storedUser = storageService.get<string>('user');
-        if (storedUser) setUser(JSON.parse(storedUser));
-        setIsLoading(false);
+        const storedUser = storageService.get('user');
+        if (storedUser) setUser(storedUser as User);
+        setLoading(false);
     }, []);
 
     const login = (userData: User) => {
-        storageService.set<string>('user', JSON.stringify(userData));
+        storageService.set<User>('user', userData);
         setUser(userData);
         return;
     };
@@ -43,7 +43,7 @@ export function AuthProvider({ children }: { children: ReactNode }): ReactElemen
 
 
     return (
-        <AuthContext.Provider value={{ user, login, logout, isLoading }}>
+        <AuthContext.Provider value={{ user, login, logout, loading }}>
             {children}
         </AuthContext.Provider>
     );

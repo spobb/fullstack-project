@@ -4,9 +4,9 @@ import { ReactElement, ReactNode } from "react";
 
 export function ProtectedRoute({ children, roles }: { children: ReactNode, roles?: string[] }): ReactElement {
     const location = useLocation();
-    const { user, isLoading } = useAuth();
+    const { user, loading } = useAuth();
 
-    if (isLoading) return <p>Loading...</p>
+    if (loading) return <p>Loading...</p>;
 
     if (roles) return <p>roles</p>;
 

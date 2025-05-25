@@ -45,7 +45,7 @@ export function RegisterForm(): ReactElement {
                                 }
                             })}
                         variant="standard"
-                        error={errors.email && true}
+                        error={!!errors.email}
                         helperText={errors.email?.message as string}
                     />
                 </FormControl>
@@ -66,7 +66,7 @@ export function RegisterForm(): ReactElement {
                                 message: 'Your password must be between 8 and 24 characters long.'
                             }
                         })}
-                        error={errors.password && true}
+                        error={!!errors.password}
                     />
                     <FormHelperText error>{errors.password?.message as string}</FormHelperText>
                 </FormControl>
@@ -80,7 +80,7 @@ export function RegisterForm(): ReactElement {
                             required: 'Please confirm your password.',
                             validate: (value) => value === password || 'Passwords do not match.'
                         })}
-                        error={errors.cpassword && true}
+                        error={!!errors.cpassword}
                     />
                     <FormHelperText error>{errors.cpassword?.message as string}</FormHelperText>
                 </FormControl>

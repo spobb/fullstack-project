@@ -12,20 +12,24 @@ import { RegisterForm } from '#features/auth/RegisterForm.tsx';
 import { ErrorPage } from '#pages/ErrorPage';
 import { ProfilePage } from '#pages/ProfilePage';
 import { ContactsPage } from '#pages/ContactsPage.tsx';
+import { ContactForm } from '#features/contact/ContactForm';
 
-import { theme } from './theme';
+import { theme, darkTheme } from './theme';
 import { HomePage } from '#pages/HomePage.tsx';
+import { CssBaseline } from '@mui/material';
 
 function App() {
     return (
         <AuthProvider>
-            <ThemeProvider theme={theme}>
+            <ThemeProvider theme={darkTheme}>
+                <CssBaseline />
                 <Routes>
                     <Route path={ROUTES_CONFIG.HOME} element={<Layout />}>
                         <Route path={ROUTES_CONFIG.HOME} element={<HomePage />}></Route>
 
-                        <Route path={ROUTES_CONFIG.CONTACT.LIST} element={<ContactsPage />}></Route>
-
+                        <Route path={ROUTES_CONFIG.CONTACT.LIST} element={<ProtectedRoute><ContactsPage /></ProtectedRoute>}></Route>
+                        <Route path={ROUTES_CONFIG.CONTACT.NEW} element={<ProtectedRoute><ContactForm /></ProtectedRoute>}></Route>
+                        <Route path={ROUTES_CONFIG.CONTACT.ID.EDIT} element={<ProtectedRoute><ContactForm /></ProtectedRoute>}></Route>
 
                         <Route path={ROUTES_CONFIG.AUTH.LOGIN} element={<LoginForm />}></Route>
                         <Route path={ROUTES_CONFIG.AUTH.REGISTER} element={<RegisterForm />}></Route>

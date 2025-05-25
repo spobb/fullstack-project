@@ -10,7 +10,11 @@ export const Layout = () => {
 
     return (
         <>
-            <AppBar position="fixed" color="transparent" sx={{ boxShadow: 'none' }}>
+            <AppBar
+                position="fixed"
+                color="transparent"
+                sx={{ boxShadow: 'none' }}
+            >
                 <Toolbar>
                     <Button
                         color='inherit'
@@ -19,13 +23,22 @@ export const Layout = () => {
                         sx={{ marginRight: 'auto', fontSize: '2rem', textTransform: 'none' }}>
                         Contact.
                     </Button>
-                    <span className="divider"></span>
-                    <Button color='inherit' href="/contacts">Contacts</Button>
-                    <span className="divider"></span>
-                    {!user && <Button color='inherit' href="/register">Sign up</Button>}
-                    {!user && <Button color='inherit' href="/login">Login</Button>}
-                    {user && <Button color='inherit' onClick={logout}>Log out</Button>}
-                    {user && <Button color='inherit' href="/profile">Profile</Button>}
+
+                    {/* Logged in */}
+                    {user && <>
+                        <Button color='inherit' href="/contacts/new">New</Button>
+                        <span className="divider"></span>
+                        <Button color='inherit' href="/contacts">Contacts</Button>
+                        <span className="divider"></span>
+                        <Button color='inherit' onClick={logout}>Log out</Button>
+                        <Button color='inherit' href="/profile">Profile</Button>
+                    </>}
+
+                    {/* NOT logged in */}
+                    {!user && <>
+                        <Button color='inherit' href="/register">Sign up</Button>
+                        <Button color='inherit' href="/login">Login</Button>
+                    </>}
                 </Toolbar>
             </AppBar >
 

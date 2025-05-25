@@ -50,7 +50,7 @@ export function LoginForm(): ReactElement {
                                 }
                             })}
                         variant="standard"
-                        error={errors.email && true}
+                        error={!!errors.email}
                         helperText={errors.email?.message as string}
                     />
                 </FormControl>
@@ -71,7 +71,7 @@ export function LoginForm(): ReactElement {
                                 message: 'Your password must be between 8 and 24 characters long.'
                             }
                         })}
-                        error={errors.password && true}
+                        error={!!errors.password}
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton onClick={handleShowPassword} edge="end">

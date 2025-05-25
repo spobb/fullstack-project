@@ -1,25 +1,17 @@
-import { useEffect, useState } from 'react';
 import { Contact } from '#types/contact.type';
-import { getAllContacts } from '#services/contact.service';
+import { useFetch } from '#services/fetch.hook.ts';
+
+import './ContactsPage.css';
 
 export function ContactsPage() {
-    const [contacts, setContacts] = useState<Contact[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+    const { data: contacts, loading, error } = useFetch<Contact[]>(`${import.meta.env.VITE_API_URL}/contacts`);
 
-    useEffect(() => {
-        getAllContacts()
-            .then(data => setContacts(data))
-            .catch(err => setError(err.message))
-            .finally(() => setLoading(false));
-    }, []);
-
-    if (loading) return <p>Chargement...</p>;
-    if (error) return <p>Erreur : {error}</p>;
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error | {error}</p>;
 
     return (
         <ul>
-            {contacts.map(contact => (
+            {contacts?.map(contact => (
                 <li key={contact.id}>
                     <img src={contact.avatar} alt={contact.firstName + contact.lastName} width={50} />
                     <div>{contact.firstName + contact.lastName} - {contact.email}</div>

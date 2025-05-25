@@ -7,5 +7,9 @@ export const ROUTES_CONFIG = {
     },
     'CONTACT': {
         'LIST': '/contacts',
+        'NEW': '/contacts/new',
+        'ID': {
+            'EDIT': '/contacts/:id/edit',
+        }
     },
 } as const;

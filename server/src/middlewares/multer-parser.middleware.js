@@ -1,4 +1,4 @@
 export const multerParser = (req, res, next) => {
-    req.body = { ...JSON.parse(req.body.fields), avatar: req.file.filename }
+    req.body = { ...req.body, avatar: req.file.filename }
     return next();
 }

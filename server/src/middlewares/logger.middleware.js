@@ -22,6 +22,5 @@ export const logger = (options = { resTime: false }) => (req, res, next) => {
         })
     } else { process.stdout.write('\n') }
 
-
     return next();
 }

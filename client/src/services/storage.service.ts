@@ -9,10 +9,10 @@ class StorageService {
         this.storage = localStorage;
     }
 
-    get<T>(key: string): T | null {
+    get(key: string): string | object | null {
         try {
-            const item = this.storage.getItem(key)
-            return item ? JSON.parse(item) as T : null;
+            const item = this.storage.getItem(key);
+            return JSON.parse(item!);
         } catch (err) {
             console.error(`Error getting ${key} from local storage`, err);
             return null;
